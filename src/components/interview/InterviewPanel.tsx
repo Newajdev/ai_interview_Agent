@@ -5,15 +5,21 @@ import { AudioMeter } from "@/components/microphone/AudioMeter";
 type InterviewPanelProps = {
   mode: "speaking" | "listening" | "processing";
   level: number;
+  question?: string;
+  transcript?: string;
   onStartAnswering?: () => void;
   onSubmit?: () => void;
+  onComplete?: () => void;
 };
 
 export function InterviewPanel({
   mode,
   level,
+  question = "Welcome. I've reviewed your background. Could you introduce yourself and tell me about the work you're most proud of?",
+  transcript,
   onStartAnswering,
   onSubmit,
+  onComplete,
 }: InterviewPanelProps) {
   const content =
     mode === "processing" ? (
@@ -25,11 +31,10 @@ export function InterviewPanel({
       </section>
     ) : mode === "listening" ? (
       <section className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-white/5 p-8 text-center">
-        <p className="text-cyan-300">YOUR TURN · LISTENING</p>
+        <div className="flex items-center justify-between"><p className="text-cyan-300">YOUR TURN · LISTENING</p><Button onClick={onComplete} variant="ghost" className="text-slate-400">Finish interview</Button></div>
         <AudioMeter level={level} />
         <p className="mt-4 text-slate-400">
-          Your answer transcript will appear here when speech recognition is
-          connected.
+          {transcript ?? "Speak your answer, then submit it for analysis."}
         </p>
         <Button
           onClick={onSubmit}
@@ -55,8 +60,7 @@ export function InterviewPanel({
             <Volume2 size={32} />
           </span>
           <p className="mt-8 text-lg leading-8">
-            Welcome. I&apos;ve reviewed your background. Could you introduce
-            yourself and tell me about the work you&apos;re most proud of?
+            {question}
           </p>
           <Button
             onClick={onStartAnswering}
