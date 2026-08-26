@@ -6,7 +6,10 @@ type AppShellProps = {
   eyebrow?: string;
 };
 
-export function AppShell({ children, eyebrow = "Personalized AI practice" }: AppShellProps) {
+export function AppShell({
+  children,
+  eyebrow = "Personalized AI practice",
+}: AppShellProps) {
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_50%_-15%,#164e63,transparent_38%),#080b12] px-5 py-8 text-slate-100">
       <div className="mx-auto max-w-5xl">
