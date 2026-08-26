@@ -1,0 +1,2 @@
+export type Candidate = { id?: string; name: string | null; email: string | null; phone: string | null; professionalTitle: string | null; skills: string[]; experience: { summary: string }[]; projects: { name: string; description: string }[] };
+export type InterviewState = 'idle' | 'uploading' | 'processing-cv' | 'profile-ready' | 'requesting-microphone' | 'testing-microphone' | 'ready' | 'countdown' | 'ai-speaking' | 'listening' | 'processing' | 'completed' | 'error';

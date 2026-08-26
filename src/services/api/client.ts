@@ -1,0 +1,4 @@
+import type { Candidate } from '@/types/interview';
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api';
+async function request<T>(path: string, init: RequestInit): Promise<T> { const response = await fetch(`${API_URL}${path}`, init); const payload = await response.json(); if (!response.ok) throw new Error(payload.error ?? 'Something went wrong.'); return payload as T; }
+export const api = { analyzeCv(file: File) { const formData = new FormData(); formData.append('file', file); return request<{ candidate: Candidate }>('/cv/analyze', { method: 'POST', body: formData }); }, createInterview(candidateId: string) { return request<{ interview: { id: string } }>('/interviews', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ candidateId }) }); }, startInterview(id: string) { return request<{ interview: { id: string } }>(`/interviews/${id}/start`, { method: 'POST' }); } };
